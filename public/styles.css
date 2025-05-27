@@ -76,9 +76,224 @@
 }
 
 input[type="file"]::-webkit-file-upload-button {
-    background: #26a69a;
+    background: #000000;
     border: 1px solid gray;
     cursor: pointer;
-    color: #fff;
+    color: #000000;
     border-radius: .2em;
+}
+
+/* Estilo del cuerpo de la página */
+body {
+  background: linear-gradient(135deg, #000000 5%, #afa5a571 100%);
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Controles en línea */
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px auto;
+  padding: 15px;
+  background: transparent;
+  max-width: 95%;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  padding: 8px 15px;
+  background: transparent;
+}
+
+/* Estilos para el selector de detector */
+#face_detector_selection_control {
+  min-width: 200px;
+  margin: 0;
+  position: relative;
+  top: -5px; /* Subir el selector de rostros 5px */
+}
+
+/* Estilos para los controles de FPS */
+.fps-display {
+  display: flex;
+  gap: 15px;
+}
+
+.fps-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  top: -12px; /* Subir los textos de tiempo y FPS */
+  margin-bottom: -12px; /* Compensar el espacio movido */
+}
+
+.fps-item label {
+  margin: 0;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #555;
+}
+
+.fps-item input {
+  width: 60px;
+  text-align: center;
+  margin: 0;
+  padding: 4px 8px !important;
+  height: 30px !important;
+}
+
+/* Controles de confianza */
+.confidence-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  top: -5px; /* Ajustar alineación con el selector */
+}
+
+.confidence-controls label {
+  margin: 0;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #555;
+}
+
+.confidence-controls input {
+  width: 50px;
+  text-align: center;
+  margin: 0;
+  padding: 4px 8px !important;
+  height: 30px !important;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .control-group {
+    margin: 5px 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .fps-display {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Estilos para los controles */
+.controls-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 90%;
+}
+
+/* Estilos para los botones */
+.btn, button {
+  background-color: #4a6fa5 !important;
+  color: white !important;
+  border: none;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover, button:hover {
+  background-color: #3a5a8c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para los select */
+.select-wrapper input.select-dropdown {
+  border: 1px solid #ddd !important;
+  border-radius: 20px;
+  padding: 0 15px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  margin: 0;
+  background-color: white;
+}
+
+/* Estilos para las etiquetas */
+label {
+  color: #4a4a4a !important;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Estilos para los inputs */
+input[type="text"], 
+input[type="number"],
+input[type="range"] {
+  background-color: white;
+  border: 1px solid #ddd !important;
+  border-radius: 20px !important;
+  padding: 0 15px !important;
+  height: 36px !important;
+  box-shadow: none !important;
+}
+
+/* Estilos para el contenedor del video */
+.video-container {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 90%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Estilos para el video y el canvas de superposición */
+#inputVideo,
+#overlay {
+  width: 100%;
+  border-radius: 15px;
+  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor del video */
+.margin {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  background: #000;
+  display: inline-block;
+}
+
+/* Estilos para el loader */
+#loader {
+  margin: 20px auto;
+  max-width: 200px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#loader .indeterminate {
+  background-color: #4a6fa5;
 }

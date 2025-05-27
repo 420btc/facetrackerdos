@@ -8,8 +8,8 @@ let selectedFaceDetector = SSD_MOBILENETV1
 let minConfidence = 0.5
 
 // tiny_face_detector options
-let inputSize = 512
-let scoreThreshold = 0.5
+let inputSize = 608
+let scoreThreshold = 0.1
 
 function getFaceDetectorOptions() {
   return selectedFaceDetector === SSD_MOBILENETV1
@@ -29,29 +29,26 @@ function onDecreaseMinConfidence() {
   updateResults()
 }
 
-function onInputSizeChanged(e) {
-  changeInputSize(e.target.value)
-  updateResults()
+function onInputSizeChanged() {
+  // No hacer nada, tamaño fijo a 608x608
 }
 
-function changeInputSize(size) {
-  inputSize = parseInt(size)
-
-  const inputSizeSelect = $('#inputSize')
-  inputSizeSelect.val(inputSize)
-  inputSizeSelect.material_select()
+function changeInputSize() {
+  inputSize = 608; // Siempre 608x608
+  
+  // Ocultar el selector de tamaño
+  const inputSizeSelect = $('#inputSize');
+  if (inputSizeSelect.length) {
+    inputSizeSelect.hide();
+  }
 }
 
 function onIncreaseScoreThreshold() {
-  scoreThreshold = Math.min(faceapi.utils.round(scoreThreshold + 0.1), 1.0)
-  $('#scoreThreshold').val(scoreThreshold)
-  updateResults()
+  // No hacer nada, valor fijo
 }
 
 function onDecreaseScoreThreshold() {
-  scoreThreshold = Math.max(faceapi.utils.round(scoreThreshold - 0.1), 0.1)
-  $('#scoreThreshold').val(scoreThreshold)
-  updateResults()
+  // No hacer nada, valor fijo
 }
 
 function onIncreaseMinFaceSize() {

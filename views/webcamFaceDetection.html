@@ -21,37 +21,39 @@
       <canvas id="overlay" />
     </div>
 
-    <div class="row side-by-side">
-
-      <!-- face_detector_selection_control -->
-      <div id="face_detector_selection_control" class="row input-field" style="margin-right: 20px;">
-        <select id="selectFaceDetector">
-          <option value="ssd_mobilenetv1">SSD Mobilenet V1</option>
-          <option value="tiny_face_detector">Tiny Face Detector</option>
-        </select>
-        <label>Select Face Detector</label>
-      </div>
-      <!-- face_detector_selection_control -->
-
-      <!-- fps_meter -->
-      <div id="fps_meter" class="row side-by-side">
-        <div>
-          <label for="time">Time:</label>
-          <input disabled value="-" id="time" type="text" class="bold">
-          <label for="fps">Estimated Fps:</label>
-          <input disabled value="-" id="fps" type="text" class="bold">
+    <!-- Controles en línea -->
+    <div class="controls-row">
+      <!-- Selector de detector -->
+      <div class="control-group">
+        <div id="face_detector_selection_control" class="input-field">
+          <select id="selectFaceDetector">
+            <option value="ssd_mobilenetv1">SSD Mobilenet V1</option>
+            <option value="tiny_face_detector">Tiny Face Detector</option>
+          </select>
+          <label>Detector de Rostros</label>
         </div>
       </div>
-      <!-- fps_meter -->
 
-    </div>
+      <!-- Controles de FPS -->
+      <div class="control-group">
+        <div id="fps_meter">
+          <div class="fps-display">
+            <div class="fps-item">
+              <label for="time">Tiempo:</label>
+              <input disabled value="-" id="time" type="text" class="bold">
+            </div>
+            <div class="fps-item">
+              <label for="fps">FPS:</label>
+              <input disabled value="-" id="fps" type="text" class="bold">
+            </div>
+          </div>
+        </div>
+      </div>
 
-
-    <!-- ssd_mobilenetv1_controls -->
-    <span id="ssd_mobilenetv1_controls">
-      <div class="row side-by-side">
-        <div class="row">
-          <label for="minConfidence">Min Confidence:</label>
+      <!-- Controles de confianza (ocultos por defecto) -->
+      <div id="ssd_mobilenetv1_controls" class="control-group">
+        <div class="confidence-controls">
+          <label for="minConfidence">Confianza Mín:</label>
           <input disabled value="0.5" id="minConfidence" type="text" class="bold">
         </div>
         <button
@@ -71,38 +73,9 @@
     <!-- ssd_mobilenetv1_controls -->
 
     <!-- tiny_face_detector_controls -->
-    <span id="tiny_face_detector_controls">
-      <div class="row side-by-side">
-        <div class="row input-field" style="margin-right: 20px;">
-          <select id="inputSize">
-            <option value="" disabled selected>Input Size:</option>
-            <option value="128">128 x 128</option>
-            <option value="160">160 x 160</option>
-            <option value="224">224 x 224</option>
-            <option value="320">320 x 320</option>
-            <option value="416">416 x 416</option>
-            <option value="512">512 x 512</option>
-            <option value="608">608 x 608</option>
-          </select>
-          <label>Input Size</label>
-        </div>
-        <div class="row">
-          <label for="scoreThreshold">Score Threshold:</label>
-          <input disabled value="0.5" id="scoreThreshold" type="text" class="bold">
-        </div>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onDecreaseScoreThreshold()"
-        >
-          <i class="material-icons left">-</i>
-        </button>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onIncreaseScoreThreshold()"
-        >
-          <i class="material-icons left">+</i>
-        </button>
-      </div>
+    <span id="tiny_face_detector_controls" style="display: none;">
+      <!-- Controles ocultos para Tiny Face Detector -->
+      <input type="hidden" id="scoreThreshold" value="0.1">
     </span>
     <!-- tiny_face_detector_controls -->
 
@@ -145,13 +118,24 @@
     async function run() {
       // load face detection model
       await changeFaceDetector(TINY_FACE_DETECTOR)
-      changeInputSize(128)
+      changeInputSize(608) // Establecer tamaño fijo a 608x608
+      
+      // Establecer el score threshold a 0.1
+      if (window.faceDetectionControls) {
+        faceDetectionControls.scoreThreshold = 0.1;
+      }
 
       // try to access users webcam and stream the images
       // to the video element
-      const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: true 
+      })
       const videoEl = $('#inputVideo').get(0)
       videoEl.srcObject = stream
+      
+      // Asegurarse de que el video ocupe todo el ancho disponible
+      videoEl.style.width = '100%'
+      videoEl.style.height = 'auto'
     }
 
     function updateResults() {}
