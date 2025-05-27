@@ -13,9 +13,9 @@ app.use(express.urlencoded({ extended: true }))
 // Rutas estáticas
 const viewsDir = path.join(__dirname, 'views')
 app.use(express.static(viewsDir))
-app.use(express.static(path.join(__dirname, './public')))
-app.use(express.static(path.join(__dirname, '../../weights')))
-app.use(express.static(path.join(__dirname, '../../dist')))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'weights')))
+app.use(express.static(path.join(__dirname, 'dist')))
 
 // Ruta por defecto
 app.get('/', (req, res) => res.redirect('/webcam_face_detection'))

@@ -1,11 +1,21 @@
 {
+  "name": "face-tracker-app",
+  "version": "1.0.0",
+  "description": "Aplicación de seguimiento facial con face-api.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "author": "justadudewhohacks",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "cors": "^2.8.5",
+    "helmet": "^4.6.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }
